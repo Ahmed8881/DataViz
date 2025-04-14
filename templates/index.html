@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Shopping Trends Visualization</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Data Viz</span>
+                </div>
+                <button class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <h3>Visualization Libraries</h3>
+                <ul class="library-list">
+                    <li>
+                        <button class="library-btn active" data-library="matplotlib">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Matplotlib</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="library-btn" data-library="seaborn">
+                            <i class="fas fa-chart-area"></i>
+                            <span>Seaborn</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="library-btn" data-library="pandas">
+                            <i class="fas fa-table"></i>
+                            <span>Pandas</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="library-btn" data-library="plotly">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Plotly</span>
+                        </button>
+                    </li>
+                </ul>
+                <div class="sidebar-footer">
+                    <div class="dataset-info-toggle" id="dataset-info-toggle">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Dataset Info</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Customer Shopping Trends</h1>
+                <div class="header-actions">
+                    <div class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div id="loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Generating visualizations...</p>
+                </div>
+                
+                <div id="welcome-message" class="welcome-message">
+                    <div class="welcome-content">
+                        <h2><i class="fas fa-shopping-cart"></i> Customer Shopping Trends Dashboard</h2>
+                        <p>Select a visualization library from the sidebar to explore the dataset.</p>
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <i class="fas fa-users"></i>
+                                <div class="stat-info">
+                                    <h3>Customers</h3>
+                                    <p>500+</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-shopping-bag"></i>
+                                <div class="stat-info">
+                                    <h3>Products</h3>
+                                    <p>150+</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-tags"></i>
+                                <div class="stat-info">
+                                    <h3>Categories</h3>
+                                    <p>10+</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="visualization-container" class="visualization-container"></div>
+            </div>
+        </main>
+        
+        <div id="dataset-info-panel" class="dataset-info-panel">
+            <div class="panel-header">
+                <h3>Dataset Information</h3>
+                <button id="close-panel" class="close-panel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-content">
+                <div class="dataset-description">
+                    <h4>Customer Shopping Trends Dataset</h4>
+                    <p>This comprehensive dataset captures various aspects of customer shopping behavior and preferences.</p>
+                    
+                    <h5>Key Features:</h5>
+                    <ul>
+                        <li><i class="fas fa-user"></i> <strong>Demographics:</strong> Age, Gender, Location</li>
+                        <li><i class="fas fa-shopping-cart"></i> <strong>Purchase Details:</strong> Item, Category, Price</li>
+                        <li><i class="fas fa-credit-card"></i> <strong>Payment Methods:</strong> Credit/Debit Cards, PayPal, etc.</li>
+                        <li><i class="fas fa-truck"></i> <strong>Shipping Types:</strong> Standard, Express, Next-Day</li>
+                        <li><i class="fas fa-star"></i> <strong>Review Ratings:</strong> Customer satisfaction levels</li>
+                        <li><i class="fas fa-calendar-check"></i> <strong>Subscription Status:</strong> Active subscriptions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
