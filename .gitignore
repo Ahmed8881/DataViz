@@ -1,0 +1,27 @@
+# Data files
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.sqlite
+*.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+.env/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+
+# Logs and temp files
+*.log
+.DS_Store
