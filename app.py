@@ -11,7 +11,7 @@ matplotlib.use('Agg')
 from visualizations.matplotlib_visualizations import generate_matplotlib_visualizations
 from visualizations.seaborn_visualizations import generate_seaborn_visualizations
 from visualizations.pandas_visualizations import generate_pandas_visualizations
-from visualizations.plotly_visualizations import generate_plotly_visualizations
+from visualizations.numpy_visualizations import generate_numpy_visualizations
 
 app = Flask(__name__)
 # ...existing code...
@@ -48,8 +48,8 @@ def get_visualizations():
         results = generate_seaborn_visualizations(df)
     elif library == 'pandas':
         results = generate_pandas_visualizations(df)
-    # elif library == 'plotly':
-    #     results = generate_plotly_visualizations(df)
+    elif library == 'plotly':
+        results = generate_numpy_visualizations(df)
     else:
         return jsonify({'error': 'Invalid library selected'})
     
