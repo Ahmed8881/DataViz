@@ -76,6 +76,39 @@ def generate_pandas_visualizations(df):
     plt.ylabel('Purchase Amount (USD)')
     visualizations.append(save_plot_to_base64(plt, 'Purchase Amount Over Age'))
     plt.close()
+
+    # Visualization 5: Payment Method Popularity
+    plt.figure(figsize=(10, 6))
+    payment_counts = df['Payment Method'].value_counts().sort_values()
+    payment_counts.plot(
+        kind='barh',
+        color=['skyblue', 'lightgreen', 'salmon', 'gold'],
+        edgecolor='black'
+    )
+    plt.title('Most Popular Payment Methods')
+    plt.xlabel('Number of Transactions')
+    plt.ylabel('Payment Method')
+    plt.grid(axis='x', linestyle='--', alpha=0.4)
+    visualizations.append(save_plot_to_base64(plt, 'Payment Method Popularity'))
+    plt.close()
+
+    # Visualization 6: Purchase Amount by Category
+    plt.figure(figsize=(12, 6))
+    df.boxplot(
+        column='Purchase Amount (USD)',
+        by='Category',
+        vert=False,
+        patch_artist=True,
+        boxprops={'facecolor': 'lightblue'},
+        flierprops={'marker': 'o', 'markersize': 5, 'markerfacecolor': 'red'}
+    )
+    plt.title('Purchase Amount Distribution by Category')
+    plt.suptitle('')  
+    plt.xlabel('Purchase Amount (USD)')
+    plt.ylabel('Category')
+    plt.grid(axis='x', linestyle='--', alpha=0.3)
+    visualizations.append(save_plot_to_base64(plt, 'Purchase Amount by Category'))
+    plt.close()
     
     return {
         'library': 'pandas',
