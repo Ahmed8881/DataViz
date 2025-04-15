@@ -9,7 +9,11 @@ def generate_numpy_visualizations(df):
     
     # Visualization 1: Average Age by Payment Method
     payment_methods = df['Preferred Payment Method'].unique()
-    mean_ages = [df[df['Preferred Payment Method'] == method]['Age'].mean() for method in payment_methods]
+    mean_ages = []
+    for method in payment_methods:
+        filtered_ages = df[df['Preferred Payment Method'] == method]['Age']
+        mean_age = filtered_ages.mean()
+        mean_ages.append(mean_age)
 
     plt.figure(figsize=(10, 6))
     plt.bar(payment_methods, mean_ages, color=['skyblue', 'lightgreen', 'salmon'])
@@ -45,15 +49,18 @@ def generate_numpy_visualizations(df):
     
     # Visualization 4: Review Rating Distribution
     plt.figure(figsize=(10, 6))
-    x = np.linspace(df['Review Rating'].min(), df['Review Rating'].max(), 100)
-    y = np.exp(-(x - df['Review Rating'].mean())**2 / (2 * df['Review Rating'].std()))  # Gaussian approximation
-    plt.plot(x, y, color='purple', label='Approx. Distribution')
-    plt.hist(df['Review Rating'], bins=15, density=True, alpha=0.5, color='orange')
-    plt.title('Review Rating Distribution')
-    plt.xlabel('Review Rating')
-    plt.ylabel('Density')
+    plt.hist(df['Review Rating'], bins=10, color='skyblue', edgecolor='white')
+    avg_rating = df['Review Rating'].mean()
+    plt.axvline(avg_rating, color='red', linestyle='--', 
+                label=f'Average: {avg_rating:.1f}')
+
+    plt.title('Customer Review Ratings Distribution')
+    plt.xlabel('Rating (1-5 stars)')
+    plt.ylabel('Number of Reviews')
     plt.legend()
-    visualizations.append(save_plot_to_base64(plt, 'Review Rating Distribution'))
+    plt.grid(axis='y', alpha=0.3)
+
+    visualizations.append(save_plot_to_base64(plt, 'Review Ratings'))
     plt.close()
 
     #Visualization 05:  Purchase Frequency by Gender
