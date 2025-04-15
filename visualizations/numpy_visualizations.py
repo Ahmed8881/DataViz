@@ -55,6 +55,30 @@ def generate_numpy_visualizations(df):
     plt.legend()
     visualizations.append(save_plot_to_base64(plt, 'Review Rating Distribution'))
     plt.close()
+
+    #Visualization 05:  Purchase Frequency by Gender
+    plt.figure(figsize=(10, 6))
+    counts = df.groupby(['Frequency of Purchases', 'Gender']).size().unstack()
+    counts.plot(kind='bar', color=['lightpink', 'lightblue'])
+    plt.title('Purchase Frequency by Gender')
+    plt.xlabel('Frequency of Purchases')
+    plt.ylabel('Count')
+    plt.xticks(rotation=45)
+    plt.legend(title='Gender')
+    visualizations.append(save_plot_to_base64(plt, 'Purchase Frequency by Gender'))
+    plt.close()
+
+    #Visualization 06:  Average Rating by Season
+    plt.figure(figsize=(10, 6))
+    avg_ratings = df.groupby('Season')['Review Rating'].mean()
+    plt.plot(avg_ratings.index, avg_ratings.values, marker='o', color='purple')
+    plt.title('Average Rating by Season')
+    plt.xlabel('Season')
+    plt.ylabel('Average Rating')
+    plt.ylim(0, 5) 
+    plt.grid(True, linestyle='--', alpha=0.3)
+    visualizations.append(save_plot_to_base64(plt, 'Average Rating by Season'))
+    plt.close()
     
     return {
         'library': 'numpy',
