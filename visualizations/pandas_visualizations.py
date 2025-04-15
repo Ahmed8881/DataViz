@@ -43,6 +43,8 @@ def generate_pandas_visualizations(df):
     # Save and close
     visualizations.append(save_plot_to_base64(plt, 'Subscription Status Distribution'))
     plt.close()
+    
+    
     # Visualization 3: Previous Purchases Distribution
     plt.figure(figsize=(10, 6))
     df['Previous Purchases'].plot(kind='hist', bins=20, edgecolor='black', color='purple', alpha=0.7)
