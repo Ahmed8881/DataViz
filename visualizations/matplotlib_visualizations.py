@@ -4,10 +4,30 @@ import io
 import base64
 
 def generate_matplotlib_visualizations(df):
+    # Clean data before visualization
+    df_clean = df.copy()
+    
+    # Fill missing numeric values with their respective means
+    numeric_cols = ['Age', 'Purchase Amount (USD)', 'Review Rating']
+    for col in numeric_cols:
+        if col in df_clean.columns:
+            df_clean[col] = df_clean[col].fillna(df_clean[col].mean())
+    
+    # Fill missing categorical values with their most frequent value
+    categorical_cols = ['Category', 'Payment Method']
+    for col in categorical_cols:
+        if col in df_clean.columns:
+            df_clean[col] = df_clean[col].fillna(df_clean[col].mode()[0])
+    
+    # Drop any remaining rows with missing values in critical columns
+    critical_cols = ['Age', 'Category', 'Purchase Amount (USD)', 'Payment Method', 'Review Rating']
+    df_clean = df_clean.dropna(subset=[col for col in critical_cols if col in df_clean.columns])
+    
     visualizations = []    
+    
     # Visualization 1: Age Distribution
     plt.figure(figsize=(10, 6))
-    plt.hist(df['Age'].values, bins=20, edgecolor='black', color='skyblue')
+    plt.hist(df_clean['Age'].values, bins=20, edgecolor='black', color='skyblue')
     plt.title('Age Distribution of Customers')
     plt.xlabel('Age')
     plt.ylabel('Count')
@@ -16,7 +36,7 @@ def generate_matplotlib_visualizations(df):
     
     # Visualization 2: Purchase Amount by Category
     plt.figure(figsize=(10, 6))
-    category_means = df.groupby('Category')['Purchase Amount (USD)'].mean().sort_values()
+    category_means = df_clean.groupby('Category')['Purchase Amount (USD)'].mean().sort_values()
     categories = category_means.index
     means = category_means.values 
     plt.barh(categories, means, color='skyblue', edgecolor='black')
@@ -25,9 +45,10 @@ def generate_matplotlib_visualizations(df):
     plt.ylabel('Category')
     visualizations.append(save_plot_to_base64(plt, 'Purchase Amount by Category'))
     plt.close()
+    
     # Visualization 3: Payment Method Distribution
     plt.figure(figsize=(8, 6))
-    payment_counts = df['Payment Method'].value_counts()
+    payment_counts = df_clean['Payment Method'].value_counts()
     plt.pie(payment_counts, labels=payment_counts.index, autopct='%1.1f%%')
     plt.title('Payment Method Distribution')
     visualizations.append(save_plot_to_base64(plt, 'Payment Method Distribution'))
@@ -35,7 +56,7 @@ def generate_matplotlib_visualizations(df):
     
     # Visualization 4: Purchase Amount vs. Review Rating
     plt.figure(figsize=(10, 6))
-    plt.scatter(df['Purchase Amount (USD)'], df['Review Rating'], alpha=0.5)
+    plt.scatter(df_clean['Purchase Amount (USD)'], df_clean['Review Rating'], alpha=0.5)
     plt.title('Purchase Amount vs. Review Rating')
     plt.xlabel('Purchase Amount (USD)')
     plt.ylabel('Review Rating')
