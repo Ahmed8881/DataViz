@@ -16,18 +16,20 @@ def generate_matplotlib_visualizations(df):
     
     # Visualization 2: Purchase Amount by Category
     plt.figure(figsize=(10, 6))
-    df.groupby('Category')['Purchase Amount (USD)'].mean().sort_values().plot(kind='barh', color='skyblue')
+    category_means = df.groupby('Category')['Purchase Amount (USD)'].mean().sort_values()
+    categories = category_means.index
+    means = category_means.values 
+    plt.barh(categories, means, color='skyblue', edgecolor='black')
     plt.title('Average Purchase Amount by Category')
     plt.xlabel('Average Purchase Amount (USD)')
     plt.ylabel('Category')
     visualizations.append(save_plot_to_base64(plt, 'Purchase Amount by Category'))
     plt.close()
-    
     # Visualization 3: Payment Method Distribution
-    plt.figure(figsize=(10, 6))
-    df['Payment Method'].value_counts().plot(kind='pie', autopct='%1.1f%%')
+    plt.figure(figsize=(8, 6))
+    payment_counts = df['Payment Method'].value_counts()
+    plt.pie(payment_counts, labels=payment_counts.index, autopct='%1.1f%%')
     plt.title('Payment Method Distribution')
-    plt.ylabel('')
     visualizations.append(save_plot_to_base64(plt, 'Payment Method Distribution'))
     plt.close()
     
