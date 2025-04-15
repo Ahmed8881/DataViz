@@ -45,18 +45,32 @@ def generate_pandas_visualizations(df):
     plt.close()
     
     
-    # Visualization 3: Previous Purchases Distribution
+    # Visualization 3: Previous Purchases Distribution    
+    # Step 1: Create a new figure with specified size 
     plt.figure(figsize=(10, 6))
-    df['Previous Purchases'].plot(kind='hist', bins=20, edgecolor='black', color='purple', alpha=0.7)
+    purchase_history = df['Previous Purchases'] 
+    purchase_history.plot(
+        kind='hist',       # Create a histogram
+        bins=20,           # Divide data into 20 bins
+        edgecolor='black', # Add black edges to bars
+        color='purple',    # Fill bars with purple color
+        alpha=0.7          # Make bars slightly transparent (0.7 = 70% opaque)
+    )
     plt.title('Distribution of Previous Purchases')
     plt.xlabel('Number of Previous Purchases')
     plt.ylabel('Count')
+    
+    # Step 4: Save the visualization and close the figure
     visualizations.append(save_plot_to_base64(plt, 'Previous Purchases Distribution'))
     plt.close()
     
     # Visualization 4: Purchase Amount Over Age
     plt.figure(figsize=(10, 6))
-    df.plot(kind='scatter', x='Age', y='Purchase Amount (USD)', alpha=0.5, color='orange')
+    df.plot(kind='scatter'
+            , x='Age',
+            y='Purchase Amount (USD)',
+            alpha=0.5,
+            color='orange')
     plt.title('Purchase Amount Over Age')
     plt.xlabel('Age')
     plt.ylabel('Purchase Amount (USD)')
