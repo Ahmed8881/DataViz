@@ -7,22 +7,42 @@ def generate_pandas_visualizations(df):
     visualizations = []
     
     # Visualization 1: Top 10 Items Purchased
+    # Visualization 1: Top 10 Items Purchased
     plt.figure(figsize=(10, 6))
-    df['Item Purchased'].value_counts().head(10).sort_values().plot(kind='barh', color='teal')
+    
+    # Get items frequency and prepare data for plotting
+    item_counts = df['Item Purchased'].value_counts()
+    top_10_items = item_counts.head(10)
+    sorted_top_items = top_10_items.sort_values()
+    
+    # Create horizontal bar chart
+    sorted_top_items.plot(kind='barh', color='teal')
+    
+    # Add chart labels
     plt.title('Top 10 Most Purchased Items')
     plt.xlabel('Count')
     plt.ylabel('Item')
+    
+    # Save and close
     visualizations.append(save_plot_to_base64(plt, 'Top 10 Items Purchased'))
     plt.close()
-    
     # Visualization 2: Subscription Status Distribution
     plt.figure(figsize=(8, 6))
-    df['Subscription Status'].value_counts().plot(kind='pie', autopct='%1.1f%%', colors=['lightgreen', 'lightcoral'])
+    # Get subscription status counts
+    subscription_counts = df['Subscription Status'].value_counts()
+    # Create pie chart
+    subscription_counts.plot(
+        kind='pie', 
+        autopct='%1.1f%%', 
+        colors=['lightcoral', 'lightgreen']
+    )
+    # Customize chart appearance
     plt.title('Subscription Status Distribution')
-    plt.ylabel('')
+    plt.ylabel('')  # Remove y-label for cleaner look
+    
+    # Save and close
     visualizations.append(save_plot_to_base64(plt, 'Subscription Status Distribution'))
     plt.close()
-    
     # Visualization 3: Previous Purchases Distribution
     plt.figure(figsize=(10, 6))
     df['Previous Purchases'].plot(kind='hist', bins=20, edgecolor='black', color='purple', alpha=0.7)
