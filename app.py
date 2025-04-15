@@ -5,6 +5,7 @@ import base64
 import pandas as pd
 # Set matplotlib to use non-interactive Agg backend before any other imports
 import matplotlib
+
 matplotlib.use('Agg')
 
 from visualizations.matplotlib_visualizations import generate_matplotlib_visualizations
@@ -14,6 +15,7 @@ from visualizations.plotly_visualizations import generate_plotly_visualizations
 
 app = Flask(__name__)
 # ...existing code...
+
 
 # Load dataset
 def load_data():
