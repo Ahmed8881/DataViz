@@ -4,11 +4,10 @@ import io
 import base64
 
 def generate_matplotlib_visualizations(df):
-    visualizations = []
-    
+    visualizations = []    
     # Visualization 1: Age Distribution
     plt.figure(figsize=(10, 6))
-    df['Age'].hist(bins=20, edgecolor='black')
+    plt.hist(df['Age'].values, bins=20, edgecolor='black', color='skyblue')
     plt.title('Age Distribution of Customers')
     plt.xlabel('Age')
     plt.ylabel('Count')
