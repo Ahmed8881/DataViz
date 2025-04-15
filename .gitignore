@@ -7,10 +7,14 @@
 *.db
 
 # Python
+*.pyc
 __pycache__/
+*.pyo
+*.pyd
 *.py[cod]
 *$py.class
 .ipynb_checkpoints/
+.pyc
 
 # Virtual environments
 venv/
