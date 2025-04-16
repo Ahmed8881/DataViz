@@ -7,7 +7,6 @@ def generate_pandas_visualizations(df):
     visualizations = []
     
     # Visualization 1: Top 10 Items Purchased
-    # Visualization 1: Top 10 Items Purchased
     plt.figure(figsize=(10, 6))
     
     # Get items frequency and prepare data for plotting
@@ -26,6 +25,7 @@ def generate_pandas_visualizations(df):
     # Save and close
     visualizations.append(save_plot_to_base64(plt, 'Top 10 Items Purchased'))
     plt.close()
+    
     # Visualization 2: Subscription Status Distribution
     plt.figure(figsize=(8, 6))
     # Get subscription status counts
@@ -108,6 +108,113 @@ def generate_pandas_visualizations(df):
     plt.ylabel('Category')
     plt.grid(axis='x', linestyle='--', alpha=0.3)
     visualizations.append(save_plot_to_base64(plt, 'Purchase Amount by Category'))
+    plt.close()
+    
+    # NEW Visualization 7: Review Rating Distribution
+    plt.figure(figsize=(10, 6))
+    df['Review Rating'].plot(
+        kind='hist',
+        bins=10,
+        color='lightgreen',
+        edgecolor='black',
+        alpha=0.7
+    )
+    plt.title('Distribution of Review Ratings')
+    plt.xlabel('Rating')
+    plt.ylabel('Count')
+    plt.grid(axis='y', linestyle='--', alpha=0.4)
+    visualizations.append(save_plot_to_base64(plt, 'Review Rating Distribution'))
+    plt.close()
+    
+    # NEW Visualization 8: Seasonal Purchase Patterns
+    plt.figure(figsize=(10, 6))
+    season_data = df.groupby('Season')['Purchase Amount (USD)'].mean().sort_values()
+    season_data.plot(
+        kind='bar',
+        color='skyblue',
+        edgecolor='black'
+    )
+    plt.title('Average Purchase Amount by Season')
+    plt.xlabel('Season')
+    plt.ylabel('Average Purchase Amount (USD)')
+    plt.xticks(rotation=45)
+    plt.grid(axis='y', linestyle='--', alpha=0.4)
+    visualizations.append(save_plot_to_base64(plt, 'Seasonal Purchase Patterns'))
+    plt.close()
+    
+    # NEW Visualization 9: Size Popularity Breakdown
+    plt.figure(figsize=(8, 6))
+    size_counts = df['Size'].value_counts()
+    size_counts.plot(
+        kind='pie',
+        autopct='%1.1f%%',
+        colors=['#ff9999', '#66b3ff', '#99ff99', '#ffcc99'],
+        shadow=True
+    )
+    plt.title('Size Popularity Breakdown')
+    plt.ylabel('')
+    visualizations.append(save_plot_to_base64(plt, 'Size Popularity'))
+    plt.close()
+    
+    # NEW Visualization 10: Color Preference Analysis
+    plt.figure(figsize=(12, 6))
+    color_counts = df['Color'].value_counts().head(10).sort_values()
+    color_counts.plot(
+        kind='barh',
+        colormap='viridis'
+    )
+    plt.title('Top 10 Most Popular Colors')
+    plt.xlabel('Count')
+    plt.ylabel('Color')
+    plt.grid(axis='x', linestyle='--', alpha=0.4)
+    visualizations.append(save_plot_to_base64(plt, 'Color Preference Analysis'))
+    plt.close()
+    
+    # NEW Visualization 11: Location-based Purchase Comparison
+    plt.figure(figsize=(12, 6))
+    location_data = df.groupby('Location')['Purchase Amount (USD)'].mean().sort_values(ascending=False).head(10)
+    location_data.plot(
+        kind='bar',
+        color='coral',
+        edgecolor='black'
+    )
+    plt.title('Top 10 Locations by Average Purchase Amount')
+    plt.xlabel('Location')
+    plt.ylabel('Average Purchase Amount (USD)')
+    plt.xticks(rotation=45)
+    plt.grid(axis='y', linestyle='--', alpha=0.4)
+    visualizations.append(save_plot_to_base64(plt, 'Location Purchase Comparison'))
+    plt.close()
+    
+    # NEW Visualization 12: Shipping Type Preference
+    plt.figure(figsize=(10, 6))
+    shipping_counts = df['Shipping Type'].value_counts().sort_values()
+    shipping_counts.plot(
+        kind='barh',
+        color='lightseagreen'
+    )
+    plt.title('Shipping Type Popularity')
+    plt.xlabel('Count')
+    plt.ylabel('Shipping Type')
+    plt.grid(axis='x', linestyle='--', alpha=0.4)
+    visualizations.append(save_plot_to_base64(plt, 'Shipping Type Preference'))
+    plt.close()
+    
+    # NEW Visualization 13: Discount Impact Analysis
+    plt.figure(figsize=(8, 6))
+    discount_impact = df.groupby('Discount Applied')['Purchase Amount (USD)'].mean()
+    discount_impact.index = ['No Discount', 'Discount Applied']
+    discount_impact.plot(
+        kind='bar',
+        color=['#ff9999', '#66b3ff'],
+        edgecolor='black'
+    )
+    plt.title('Impact of Discount on Average Purchase Amount')
+    plt.xlabel('Discount Status')
+    plt.ylabel('Average Purchase Amount (USD)')
+    plt.xticks(rotation=0)
+    plt.grid(axis='y', linestyle='--', alpha=0.4)
+    visualizations.append(save_plot_to_base64(plt, 'Discount Impact Analysis'))
     plt.close()
     
     return {
