@@ -1,7 +1,4 @@
 # Data files
-*.csv
-*.xlsx
-*.xls
 *.parquet
 *.sqlite
 *.db
